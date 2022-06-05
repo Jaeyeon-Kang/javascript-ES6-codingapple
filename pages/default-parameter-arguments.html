@@ -1,0 +1,50 @@
+<div></div>
+<script>
+    function 더하기(a, b) {
+        console.log('a+b: ', a + b);
+    }
+
+    // 1. 파라미터가 2개 들어가는 함수인데 1개만 들어가도 에러가 안남
+    // 나는거같은데...
+    더하기(1);
+    더하기(1, 2)
+    더하기(5)
+
+    // 2. b자리에 아무것도 안들어왔을 때 디폴트로 10을 넣음
+    function 더하기2(a, b = 2 * 5) {
+        console.log('a+b (2): ', a + b);
+    }
+
+    더하기2(1); // 11
+    더하기2(1, 2); // 3
+
+    // 3. 함수도 가능
+    function 임시함수() {
+        return 10
+    }
+
+    function 더하기3(a, b = 임시함수()) {
+        console.log('a+b (3): ', a + b);
+    }
+
+    더하기3(1); // 11   
+    더하기3(1, 2); // 3
+
+    // 4. 모든 파라미터를 한꺼번에 싸잡아서 다루고 싶을 경우
+    function 함수(a, b, c) {
+        console.log('arguments: ', arguments)
+        console.log('arguments[0]: ', arguments[0]) // 첫번째 파라미터
+        console.log('arguments[1]: ', arguments[1]) // 두번째 파라미터
+        console.log('arguments[2]: ', arguments[2]) // 세번째 파라미터
+    }
+
+    함수(1, 2, 3)
+
+    // 입력한 파라미터를 전부 콘솔창에 출력해주는 함수를 만들고싶다!?
+    function 함수2(a, b, c, d, e, f) {
+        for (let i = 0; i < arguments.length; i++) { console.log('arguments[i]: ', arguments[i]) }
+    }
+
+    함수2(2, 3, 4)
+    함수2(1, 2, 3, 4, 5, 6)
+</script>

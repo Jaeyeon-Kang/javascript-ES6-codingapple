@@ -1,0 +1,115 @@
+<div></div>
+<script>
+
+    // a,  b, c라는 파라미터만 콘솔창에 출력하고 싶어요(반복문 돌리고 싶어요)
+    // 1.arguments의 단점: arguments라는 자료를 for문으로 돌릴때 arguments를 쪼개야함.
+    function 함수(a, b, c, d, e, f) {
+        for (let i = 0; i < arguments.length; i++) { console.log('arguments[i]: ', arguments[i]) }
+    }
+
+    함수(2, 3, 4)
+
+    // 2. rest parameter로 다시 쓸 수 있음
+    // ...파라미터들은 맨 뒤에 써야되고 복수로 못씀.
+    function 함수2(a, b, ...파라미터들) {
+        // ...쓰고 파라미터 쓰면 이 자리에 오는 모든 파라미터를 []에 보관해줌
+        // 예시의 경우 3번째부터의 파라미터들만 array만 감싸서 표현됨
+        console.log('파라미터들: ', 파라미터들)
+    }
+
+    함수2(1, 2, 3, 4, 5, 6, 7)
+
+    // 모든 파라미터들을 하나씩 콘솔창에 출력해주는 함수?
+    function 함수3(...rest) {
+        for (var i = 0; i < rest.length; i++) {
+            console.log('rest[i]: ', rest[i])
+        }
+    }
+
+    함수3(1, 2, 3, 4, 023, 345, 6)
+
+    // 문제 1. 아래 코드의 출력 결과는?
+    var a1 = [1, 2, 3]
+    var b1 = '김밥'
+    var c1 = [...b1, ...a1]
+    console.log('c1: ', c1) // [김밥, 1, 2, 3]으로 예상 
+    // 풀이: 문자는 분할된다. 
+    // ['김', '밥', ...a1] = ['김', '밥', 1,2,3]
+
+    // 문제 2. 
+    var a2 = [1, 2, 3]
+    var b2 = ['you', 'are']
+    var c2 = function (a2, b2) {
+        console.log([[...a2], ...[...b2]][1])
+    }
+    console.log('c2(a2,b2): ', c2(a2, b2))
+
+    // console.log([[...a2], ...[...b2]][1])
+    // =
+    // console.log([[1,2,3], ...['you', 'are']][1] )
+    // =
+    // console.log([[1,2,3],'you', 'are'][1])
+    // =
+    // console.log('you')
+
+    // 문제 3.
+    function 함수4(a = 5, b = a * 2) {
+        console.log('a+b 문제3: ', a + b)
+        return 10
+    }
+    함수4(3) // console.log 값은 9
+
+    // 문제 4. 
+    function 함수5(a = 5, b = a * 2) {
+        console.log('a+b 문제4:', a + b)
+    }
+    함수5(undefined, undefined) // NaN? 틀림
+    // 풀이: undefined 넣으면 default parameter발동함. 답은 15 
+
+    // 문제 5. 파라미터로 자료를 입력하면 그걸 그대로 array를 만들어주는 함수를 만들고 싶다.
+    function 어레이(...rest) {
+        // 여기에 어떤 코드가 들어가면 될까?
+        console.log('문제5: ', rest) // 답임. 
+    }
+    var newArray = 어레이(1, 2, 3, 4, 5, 10, 99)
+
+
+    // 문제 6. numbers 아넹 있는 숫자들을 Math.max()에 집어넣어서 쓰고 싶은데 직접 소괄호 안에 있는 숫자를 손수 기입하기 귀찮다. 
+    // 어떻게 코드를 짤까?
+    var numbers = [2, 3, 4, 5, 6, 1, 3, 2, 5, 5, 4, 6, 7]
+    function 어쩌구() {
+        console.log("Math.max(numbers): ", Math.max(...numbers)) // 답임
+    }
+    어쩌구()
+
+    // 문제 7. 콘솔창에 a b e r 과 같이 입력한 문자를 알파벳 순으로 출력되게 하려면?
+    function 정렬(글자) {
+        console.log('...글자: ', ...글자)
+        console.log('[...글자]: ', [...글자])
+        console.log('[...글자].sort(): ', [...글자].sort()) // 답임.
+    }
+    정렬('bear')
+
+    // 문제 8. 글자세기('aacbbb')라고 입력하면 콘솔창에 {a:2, b:3, c:1} 이렇게 출력해주는 글자세기()라는 함수를 어떻게 만들까?
+    // 답 바로 적겠음.. 
+    function 글자세기(글자) {
+        console.log('문제 8 [...글자]: ', [...글자]);
+        var 결과 = {};
+        [...글자].forEach(function (a) { // a는 array 안에 있던 하나하나의 알파벳
+            // 만약에 결과에 a가 있으면 +1 해주시고 없으면 a:1 집어넣으세요 
+            if (결과[a] > 0) { //1>0
+                결과[a] = 결과[a] + 1; //a:2 b:3
+            } else {
+                결과[a] = 1
+                //a:1
+                //c:1
+                //b:1
+            }
+        })
+        console.log('문제 8 결과: ', 결과)
+
+    }
+    글자세기('aacbbb')
+
+
+</script>
